@@ -20,18 +20,22 @@ function App() {
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  },[]);
+  },[term]);
 
   return (
     <div className="container mx-auto my-10">
       <div className="mb-10 flex justify-center items-center">
-        <Search />
+        <Search searchText={(text) => setTerm(text)} />
       </div>
-      <div className="grid grid-cols-3 gap-6">
-        {images.map((image) => (
-          <ImageCard key={image.id} image={image} />
-        ))}
-      </div>
+      {isLoading ? (
+        <h1 className="mt-2 text-3xl font-semibold text-center">Loading...</h1>
+      ) : (
+        <div className="grid grid-cols-3 gap-6">
+          {images.map((image) => (
+            <ImageCard key={image.id} image={image} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
